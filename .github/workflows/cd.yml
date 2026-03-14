@@ -32,6 +32,6 @@ jobs:
         with:
           install_components: "gke-gcloud-auth-plugin" # Optional: only if you plan to use Kubernetes later
 
-      - name: Build and Push to Artifact Registry
+      - name: "Build and Push to GCP"
         run: |
-          gcloud builds submit --tag us-central1-docker.pkg.dev/project-9d85dc07-aae8-4fd3-8f7/notely-repo/notely:latest .
+          gcloud builds submit --tag us-central1-docker.pkg.dev/project-9d85dc07-aae8-4fd3-8f7/notely-ar-repo/notely:latest .
