@@ -20,3 +20,18 @@ jobs:
 
       - name: Build app
         run: ./scripts/buildprod.sh
+      # Step 1: Login to Google Cloud
+      - id: "auth"
+        uses: "google-github-actions/auth@v2"
+        with:
+          credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+
+      # Step 2: Install the gcloud CLI
+      - name: "Set up Cloud SDK"
+        uses: "google-github-actions/setup-gcloud@v2"
+        with:
+          install_components: "gke-gcloud-auth-plugin" # Optional: only if you plan to use Kubernetes later
+
+      - name: Build and Push to Artifact Registry
+        run: |
+          gcloud builds submit --tag us-central1-docker.pkg.dev/project-9d85dc07-aae8-4fd3-8f7/notely-repo/notely:latest .
